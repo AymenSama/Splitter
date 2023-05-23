@@ -1,6 +1,5 @@
 package splitter.data;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
@@ -16,7 +15,7 @@ public class PersonTest {
     @DisplayName("Willy spends 320 Euro")
     void test_01() {
         Person p = new Person("Willy", "320");
-        BigDecimal expense = p.getExpense();
+        BigDecimal expense = p.getExpenseTotal();
         String name = p.getName();
         assertThat(name).isEqualTo("Willy");
         assertThat(expense).isEqualTo("320.00");
@@ -26,7 +25,7 @@ public class PersonTest {
     @DisplayName("Martin spends 199.99 Euro")
     void test_02() {
         Person p = new Person("Martin", "199.993");
-        BigDecimal expense = p.getExpense();
+        BigDecimal expense = p.getExpenseTotal();
         String name = p.getName();
         assertThat(name).isEqualTo("Martin");
         assertThat(expense).isEqualTo("199.99");
@@ -57,6 +56,6 @@ public class PersonTest {
     void test_06() {
         Person p = new Person("Martin", "199.993");
         p.addExpense("50.67");
-        assertThat(p.getExpense()).isEqualTo("250.66");
+        assertThat(p.getExpenseTotal()).isEqualTo("250.66");
     }
 }
