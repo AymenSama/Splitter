@@ -14,7 +14,12 @@ public class Person {
             throw new IllegalArgumentException("Expense can't be null");
         }
         this.name = name;
-        this.expenseTotal = new BigDecimal(expense);
+        this.expenseTotal = formatExpense(expense);
+    }
+
+    private BigDecimal formatExpense(String expense) {
+        BigDecimal decimalNumber = new BigDecimal(expense);
+        return decimalNumber.setScale(2, RoundingMode.HALF_UP);
     }
 
     public String getName() {
@@ -22,10 +27,10 @@ public class Person {
     }
 
     public BigDecimal getExpenseTotal() {
-        return expenseTotal.setScale(2, RoundingMode.HALF_UP);
+        return expenseTotal;
     }
 
     public void addExpense(String expense) {
-        this.expenseTotal = this.expenseTotal.add(new BigDecimal(expense));
+        this.expenseTotal = this.expenseTotal.add(formatExpense(expense));
     }
 }
