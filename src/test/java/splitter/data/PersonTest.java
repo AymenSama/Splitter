@@ -13,7 +13,7 @@ public class PersonTest {
 
     @Test
     @DisplayName("Willy spends 320 Euro")
-    void test_01() {
+    void testPerson_01() {
         Person p = new Person("Willy", "320");
         BigDecimal expense = p.getExpenseTotal();
         String name = p.getName();
@@ -23,7 +23,7 @@ public class PersonTest {
 
     @Test
     @DisplayName("Martin spends 199.99 Euro")
-    void test_02() {
+    void testPerson_02() {
         Person p = new Person("Martin", "199.993");
         BigDecimal expense = p.getExpenseTotal();
         String name = p.getName();
@@ -32,20 +32,20 @@ public class PersonTest {
     }
     @Test
     @DisplayName("Expense has to be a number")
-    void test_03() {
+    void testNFException() {
         Executable badPerson = () -> new Person("this will fail", "89a");
         assertThrows(NumberFormatException.class, badPerson);
     }
     @Test
     @DisplayName("No name can be null")
-    void test_04() {
+    void testNull_01() {
         Executable badPerson = () -> new Person(null, "");
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, badPerson);
         assertThat(exception.getMessage()).containsIgnoringCase("name");
     }
     @Test
     @DisplayName("No expense can be null")
-    void test_05() {
+    void testNull_02() {
         Executable badPerson = () -> new Person("this will fail", null);
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, badPerson);
         assertThat(exception.getMessage()).containsIgnoringCase("expense");
@@ -53,14 +53,14 @@ public class PersonTest {
 
     @Test
     @DisplayName("A person can make more expenses")
-    void test_06() {
+    void testAddExpense_01() {
         Person p = new Person("Martin", "199.993");
         p.addExpense("50.67");
         assertThat(p.getExpenseTotal()).isEqualTo("250.66");
     }
     @Test
     @DisplayName("Expense total gets rounded correctly after adding expenses")
-    void test_07() {
+    void testAddExpense_02() {
         Person p = new Person("Andrew", "200");
         p.addExpense("32.5");
         p.addExpense("12.755");
