@@ -14,7 +14,7 @@ public class Person {
             throw new IllegalArgumentException("Expense can't be null");
         }
         this.name = name;
-        this.expense = new BigDecimal(expense).setScale(2, RoundingMode.HALF_UP);
+        this.expense = new BigDecimal(expense);
     }
 
     public String getName() {
@@ -22,6 +22,6 @@ public class Person {
     }
 
     public BigDecimal getExpense() {
-        return expense;
+        return expense.setScale(2, RoundingMode.HALF_UP);
     }
 }
