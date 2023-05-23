@@ -51,4 +51,12 @@ public class PersonTest {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, badPerson);
         assertThat(exception.getMessage()).containsIgnoringCase("expense");
     }
+
+    @Test
+    @DisplayName("A person can make more expenses")
+    void test_06() {
+        Person p = new Person("Martin", "199.993");
+        p.addExpense("50.67");
+        assertThat(p.getExpense()).isEqualTo("250.66");
+    }
 }

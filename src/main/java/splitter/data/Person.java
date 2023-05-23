@@ -5,7 +5,7 @@ import java.math.RoundingMode;
 
 public class Person {
     private final String name;
-    private final BigDecimal expense;
+    private BigDecimal expense;
     public Person(String name, String expense) {
         if (name == null) {
             throw new IllegalArgumentException("Name can't be null");
@@ -23,5 +23,9 @@ public class Person {
 
     public BigDecimal getExpense() {
         return expense.setScale(2, RoundingMode.HALF_UP);
+    }
+
+    public void addExpense(String expense) {
+        this.expense = this.expense.add(new BigDecimal(expense));
     }
 }
