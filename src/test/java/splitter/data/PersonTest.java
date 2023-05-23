@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PersonTest {
-    @Disabled
+
     @Test
     @DisplayName("Willy spends 320 Euro")
     void test_01() {
@@ -17,7 +17,7 @@ public class PersonTest {
         BigDecimal expense = p.getExpense();
         String name = p.getName();
         assertThat(name).isEqualTo("Willy");
-        assertThat(expense).isEqualTo("320");
+        assertThat(expense).isEqualTo("320.00");
     }
 
     @Test
