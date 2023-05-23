@@ -44,4 +44,11 @@ public class PersonTest {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, badPerson);
         assertThat(exception.getMessage()).containsIgnoringCase("name");
     }
+    @Test
+    @DisplayName("No expense can be null")
+    void test_05() {
+        Executable badPerson = () -> new Person("this will fail", null);
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, badPerson);
+        assertThat(exception.getMessage()).containsIgnoringCase("expense");
+    }
 }

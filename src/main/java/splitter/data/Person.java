@@ -10,6 +10,9 @@ public class Person {
         if (name == null) {
             throw new IllegalArgumentException("Name can't be null");
         }
+        if (expense == null) {
+            throw new IllegalArgumentException("Expense can't be null");
+        }
         this.name = name;
         this.expense = new BigDecimal(expense).setScale(2, RoundingMode.HALF_UP);
     }
