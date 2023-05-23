@@ -58,4 +58,12 @@ public class PersonTest {
         p.addExpense("50.67");
         assertThat(p.getExpenseTotal()).isEqualTo("250.66");
     }
+    @Test
+    @DisplayName("Expense total gets rounded correctly after adding expenses")
+    void test_07() {
+        Person p = new Person("Andrew", "200");
+        p.addExpense("32.5");
+        p.addExpense("12.755");
+        assertThat(p.getExpenseTotal()).isEqualTo("245.26");
+    }
 }
