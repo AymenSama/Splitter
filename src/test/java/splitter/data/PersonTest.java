@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class PersonTest {
     @Test
-    @DisplayName("Teste dass Willy 320 Euro ausgibt.")
+    @DisplayName("Willy spends 320 Euro")
     void test_01() {
         Person p = new Person("Willy", "320");
         BigDecimal expense = p.getExpense();
