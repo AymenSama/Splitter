@@ -37,4 +37,11 @@ public class PersonTest {
         Executable badPerson = () -> new Person("this will fail", "89a");
         assertThrows(NumberFormatException.class, badPerson);
     }
+    @Test
+    @DisplayName("No name can be null")
+    void test_04() {
+        Executable badPerson = () -> new Person(null, "");
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, badPerson);
+        assertThat(exception.getMessage()).containsIgnoringCase("name");
+    }
 }
