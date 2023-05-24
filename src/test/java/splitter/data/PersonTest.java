@@ -45,4 +45,22 @@ public class PersonTest {
         assertThat(name).isEqualTo("Philipp");
         assertThat(expense).isZero();
     }
+    @Test
+    @DisplayName("Two people are the same when they have the same name and expense total")
+    void testEquals() {
+        Person p1 = new Person("Martin", "30");
+        Person p2 = new Person("Martin", "30");
+        boolean isEqual = p1.equals(p2);
+        assertThat(isEqual).isTrue();
+    }
+
+    @Test
+    @DisplayName("Two people are different when either the name or the expense total is different")
+    void testNotEquals() {
+        Person p1 = new Person("Martin", "40");
+        Person p2 = new Person("Tim", "40");
+        Person p3 = new Person("Tim", "21.56");
+        assertThat(p1.equals(p2)).isFalse();
+        assertThat(p2.equals(p3)).isFalse();
+    }
 }

@@ -29,4 +29,12 @@ public class Person {
     public void addExpense(String expense) {
         this.expense.add(new Expense(expense));
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return name.equals(person.name) && getExpenseTotal().equals(person.getExpenseTotal());
+    }
 }
