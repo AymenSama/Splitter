@@ -15,17 +15,24 @@ public class PersonBuilder {
         return true;
     }
     public static List<Person> build(String[] strings) {
-        List<Person> accumulator = new ArrayList<>();
-        Person p = null;
+        List<Person> people = new ArrayList<>();
+        Person person = null;
         for (String string : strings) {
-            if (isNumeric(string) && p != null) {
-                p.addExpense(string);
-                p = null;
-            } else if (!isNumeric(string)) {
-                p = new Person(string);
-                accumulator.add(p);
+            person = makePersonOrAddExpense(person, string);
+            if (person != null) {
+                people.add(person);
             }
         }
-        return accumulator;
+        return people;
+    }
+
+    private static Person makePersonOrAddExpense(Person person, String string) {
+        if (isNumeric(string) && person != null) {
+            person.addExpense(string);
+            person = null;
+        } else if (!isNumeric(string)) {
+            person = new Person(string);
+        }
+        return person;
     }
 }
