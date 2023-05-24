@@ -13,6 +13,10 @@ public class Person {
         this.expense = new Expense(expense);
     }
 
+    public Person(String name) {
+        this(name, "0");
+    }
+
 
     public String getName() {
         return name;

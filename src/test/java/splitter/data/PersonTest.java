@@ -36,4 +36,13 @@ public class PersonTest {
         p.addExpense("50.67");
         assertThat(p.getExpenseTotal()).isEqualTo("250.66");
     }
+    @Test
+    @DisplayName("Philipp has no expenses")
+    void testPersonNoExpense() {
+        Person p = new Person("Philipp");
+        BigDecimal expense = p.getExpenseTotal();
+        String name = p.getName();
+        assertThat(name).isEqualTo("Philipp");
+        assertThat(expense).isZero();
+    }
 }
