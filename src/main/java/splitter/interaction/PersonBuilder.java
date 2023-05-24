@@ -7,6 +7,10 @@ import java.util.List;
 
 public class PersonBuilder {
     public static List<Person> build(String[] strings) {
-        return List.of();
+        List<Person> accumulator = new ArrayList<>();
+        for (String string: strings) {
+            accumulator.add(new Person(string));
+        }
+        return accumulator;
     }
 }

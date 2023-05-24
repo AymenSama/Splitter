@@ -16,4 +16,12 @@ public class PersonBuilderTest {
         List<Person> people = PersonBuilder.build(input);
         assertThat(people).isEmpty();
     }
+    @Test
+    @DisplayName("An array with one name generates a list with one person")
+    void testOnePerson() {
+        String[] input = {"Martin"};
+        List<Person> people = PersonBuilder.build(input);
+        assertThat(people).containsExactly(new Person("Martin"));
+    }
+
 }
