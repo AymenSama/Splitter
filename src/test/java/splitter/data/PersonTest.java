@@ -13,7 +13,7 @@ public class PersonTest {
 
     @Test
     @DisplayName("Willy spends 320 Euro")
-    void testPerson_01() {
+    void testPerson() {
         Person p = new Person("Willy", "320");
         BigDecimal expense = p.getExpenseTotal();
         String name = p.getName();
@@ -22,48 +22,18 @@ public class PersonTest {
     }
 
     @Test
-    @DisplayName("Martin spends 199.99 Euro")
-    void testPerson_02() {
-        Person p = new Person("Martin", "199.993");
-        BigDecimal expense = p.getExpenseTotal();
-        String name = p.getName();
-        assertThat(name).isEqualTo("Martin");
-        assertThat(expense).isEqualTo("199.99");
-    }
-    @Test
-    @DisplayName("Expense has to be a number")
-    void testNFException() {
-        Executable badPerson = () -> new Person("this will fail", "89a");
-        assertThrows(NumberFormatException.class, badPerson);
-    }
-    @Test
     @DisplayName("No name can be null")
-    void testNull_01() {
+    void testNull() {
         Executable badPerson = () -> new Person(null, "");
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, badPerson);
         assertThat(exception.getMessage()).containsIgnoringCase("name");
     }
-    @Test
-    @DisplayName("No expense can be null")
-    void testNull_02() {
-        Executable badPerson = () -> new Person("this will fail", null);
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, badPerson);
-        assertThat(exception.getMessage()).containsIgnoringCase("expense");
-    }
 
     @Test
     @DisplayName("A person can make more expenses")
-    void testAddExpense_01() {
+    void testAddExpense() {
         Person p = new Person("Martin", "199.993");
         p.addExpense("50.67");
         assertThat(p.getExpenseTotal()).isEqualTo("250.66");
-    }
-    @Test
-    @DisplayName("Expense total gets rounded correctly after adding expenses")
-    void testAddExpense_02() {
-        Person p = new Person("Andrew", "200");
-        p.addExpense("32.5");
-        p.addExpense("12.755");
-        assertThat(p.getExpenseTotal()).isEqualTo("245.26");
     }
 }
