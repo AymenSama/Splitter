@@ -7,11 +7,19 @@ import java.util.List;
 
 public class PersonBuilder {
     private static boolean isNumeric(String string) {
-        try {
-            Double.parseDouble(string);
-        } catch (NumberFormatException e) {
+        // Special cases for which the below implementation doesn't work
+        if (string.equals("") || string.startsWith(".") || string.endsWith(".")) {
             return false;
         }
+
+        String[] parts = string.split("\\.", 2);
+        for (String part: parts) {
+            boolean isNotNumeric = part.chars().anyMatch(c -> !Character.isDigit(c));
+            if (isNotNumeric) {
+                return false;
+            }
+        }
+
         return true;
     }
     public static List<Person> build(String[] strings) {
