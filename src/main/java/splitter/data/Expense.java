@@ -14,6 +14,9 @@ class Expense {
 
     private BigDecimal formatExpense(String expense) {
         BigDecimal value = new BigDecimal(expense);
+        if (value.scale() > 2) {
+            System.err.println("WARNING: The decimal part for " + expense + " exceeds 2 digits, the result will be rounded accordingly");
+        }
         return value.setScale(2, RoundingMode.HALF_UP);
     }
 

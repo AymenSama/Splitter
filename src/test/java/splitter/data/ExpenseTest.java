@@ -2,7 +2,10 @@ package splitter.data;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.function.Executable;
+import org.springframework.boot.test.system.CapturedOutput;
+import org.springframework.boot.test.system.OutputCaptureExtension;
 
 import java.math.BigDecimal;
 
@@ -33,7 +36,6 @@ public class ExpenseTest {
         assertThat(exception.getMessage()).containsIgnoringCase("expense");
     }
 
-    // TODO CHANGE THIS TEST
     @Test
     @DisplayName("Expense value gets rounded correctly after adding expenses")
     void testAddExpense() {
@@ -42,4 +44,19 @@ public class ExpenseTest {
         expense.add(new Expense("12.755"));
         assertThat(expense.getValue()).isEqualTo("245.26");
     }
+    @Test
+    @ExtendWith(OutputCaptureExtension.class)
+    @DisplayName("A warning gets logged when passing a number of which the decimal part exceeds 2 digits")
+    void testWarning(CapturedOutput output) {
+        new Expense("65.998");
+        assertThat(output.getErr()).contains("WARNING", "decimal");
+    }
+    @Test
+    @ExtendWith(OutputCaptureExtension.class)
+    @DisplayName("No warning gets logged when passing a number of which the decimal part does not exceed 2 digits")
+    void testNoWarning(CapturedOutput output) {
+        Expense expense = new Expense("1.78");
+        assertThat(output.getErr()).isEmpty();
+    }
+
 }
