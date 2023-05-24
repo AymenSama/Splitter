@@ -52,4 +52,11 @@ public class PersonBuilderTest {
         Executable e = () -> PersonBuilder.build(null);
         assertThrows(IllegalArgumentException.class, e);
     }
+    @Test
+    @DisplayName("Null strings get skipped")
+    void testNullStrings() {
+        String[] input = {null ,"Bob", null, "Martin", "Tim"};
+        List<Person> people = PersonBuilder.build(input);
+        assertThat(people).containsExactly(new Person("Bob"), new Person("Martin"), new Person("Tim"));
+    }
 }

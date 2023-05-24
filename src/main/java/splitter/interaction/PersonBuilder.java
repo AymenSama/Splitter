@@ -23,6 +23,9 @@ public class PersonBuilder {
         Person person = null;
 
         for (String string : strings) {
+            if (string == null) {
+                continue;
+            }
             person = makePersonOrAddExpense(person, string);
             if (person != null) {
                 people.add(person);
