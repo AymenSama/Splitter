@@ -15,14 +15,20 @@ public class PersonBuilder {
         return true;
     }
     public static List<Person> build(String[] strings) {
+        if (strings == null) {
+            throw new IllegalArgumentException("String array can't be null");
+        }
+
         List<Person> people = new ArrayList<>();
         Person person = null;
+
         for (String string : strings) {
             person = makePersonOrAddExpense(person, string);
             if (person != null) {
                 people.add(person);
             }
         }
+
         return people;
     }
 

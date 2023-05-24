@@ -2,11 +2,13 @@ package splitter.interaction;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import splitter.data.Person;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class PersonBuilderTest {
     @Test
@@ -43,5 +45,11 @@ public class PersonBuilderTest {
         String[] input = {"70" , "Bob", "25.89", "80", "102", "Tim"};
         List<Person> people = PersonBuilder.build(input);
         assertThat(people).containsExactly(new Person("Bob", "25.89"), new Person("Tim", "0"));
+    }
+    @Test
+    @DisplayName("Passing null throws an IllegalArgumentException")
+    void testNullArgument() {
+        Executable e = () -> PersonBuilder.build(null);
+        assertThrows(IllegalArgumentException.class, e);
     }
 }
