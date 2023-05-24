@@ -30,4 +30,11 @@ public class PersonBuilderTest {
         List<Person> people = PersonBuilder.build(input);
         assertThat(people).containsExactly(new Person("Bob", "25.89"));
     }
+    @Test
+    @DisplayName("An array with two names and two numbers builds a list with 2 people")
+    void testTwoPeople() {
+        String[] input = {"Bob", "25.89", "Tim", "80.9"};
+        List<Person> people = PersonBuilder.build(input);
+        assertThat(people).containsExactly(new Person("Bob", "25.89"), new Person("Tim", "80.9"));
+    }
 }
