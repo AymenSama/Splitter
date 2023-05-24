@@ -6,6 +6,9 @@ import java.math.RoundingMode;
 class Expense {
     private BigDecimal value;
     Expense(String expense) {
+        if (expense == null) {
+            throw new IllegalArgumentException("Expense can't be null");
+        }
         this.value = formatExpense(expense);
     }
 
