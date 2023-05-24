@@ -37,4 +37,11 @@ public class PersonBuilderTest {
         List<Person> people = PersonBuilder.build(input);
         assertThat(people).containsExactly(new Person("Bob", "25.89"), new Person("Tim", "80.9"));
     }
+    @Test
+    @DisplayName("Expenses get skipped when no names precede them")
+    void testMissingNames() {
+        String[] input = {"70" , "Bob", "25.89", "80", "102", "Tim"};
+        List<Person> people = PersonBuilder.build(input);
+        assertThat(people).containsExactly(new Person("Bob", "25.89"), new Person("Tim", "0"));
+    }
 }

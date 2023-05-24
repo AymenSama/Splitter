@@ -18,9 +18,10 @@ public class PersonBuilder {
         List<Person> accumulator = new ArrayList<>();
         Person p = null;
         for (String string : strings) {
-            if (isNumeric(string)) {
+            if (isNumeric(string) && p != null) {
                 p.addExpense(string);
-            } else {
+                p = null;
+            } else if (!isNumeric(string)) {
                 p = new Person(string);
                 accumulator.add(p);
             }
