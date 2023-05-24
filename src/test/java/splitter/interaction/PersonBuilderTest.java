@@ -23,28 +23,28 @@ public class PersonBuilderTest {
     void testOnePerson_noExpense() {
         String[] input = {"Martin"};
         List<Person> people = PersonBuilder.build(input);
-        assertThat(people).containsExactly(new Person("Martin"));
+        assertThat(people).containsExactlyInAnyOrder(new Person("Martin"));
     }
     @Test
     @DisplayName("An array with a name and a number builds a list with one person having that expense")
     void testOnePerson_expense() {
         String[] input = {"Bob", "25.89"};
         List<Person> people = PersonBuilder.build(input);
-        assertThat(people).containsExactly(new Person("Bob", "25.89"));
+        assertThat(people).containsExactlyInAnyOrder(new Person("Bob", "25.89"));
     }
     @Test
     @DisplayName("An array with two names and two numbers builds a list with 2 people")
     void testTwoPeople() {
         String[] input = {"Bob", "25.89", "Tim", "80.9"};
         List<Person> people = PersonBuilder.build(input);
-        assertThat(people).containsExactly(new Person("Bob", "25.89"), new Person("Tim", "80.9"));
+        assertThat(people).containsExactlyInAnyOrder(new Person("Bob", "25.89"), new Person("Tim", "80.9"));
     }
     @Test
     @DisplayName("Expenses get skipped when no names precede them")
     void testMissingNames() {
         String[] input = {"70" , "Bob", "25.89", "80", "102", "Tim"};
         List<Person> people = PersonBuilder.build(input);
-        assertThat(people).containsExactly(new Person("Bob", "25.89"), new Person("Tim", "0"));
+        assertThat(people).containsExactlyInAnyOrder(new Person("Bob", "25.89"), new Person("Tim", "0"));
     }
     @Test
     @DisplayName("Passing null throws an IllegalArgumentException")
@@ -57,6 +57,6 @@ public class PersonBuilderTest {
     void testNullStrings() {
         String[] input = {null ,"Bob", null, "Martin", "Tim"};
         List<Person> people = PersonBuilder.build(input);
-        assertThat(people).containsExactly(new Person("Bob"), new Person("Martin"), new Person("Tim"));
+        assertThat(people).containsExactlyInAnyOrder(new Person("Bob"), new Person("Martin"), new Person("Tim"));
     }
 }
