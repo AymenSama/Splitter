@@ -6,21 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PersonBuilder {
-    private static boolean isNumeric(String string) {
-        String[] parts = string.split("\\.", 2);
-        for (String part: parts) {
-            if (part.equals("")) {
-                return false;
-            }
-
-            boolean isNotNumeric = part.chars().anyMatch(c -> !Character.isDigit(c));
-            if (isNotNumeric) {
-                return false;
-            }
-        }
-
-        return true;
-    }
     public static List<Person> build(String[] strings) {
         if (strings == null) {
             throw new IllegalArgumentException("String array can't be null");
@@ -43,10 +28,10 @@ public class PersonBuilder {
     }
 
     private static Person handleString(List<Person> people, Person person, String string) {
-        if (isNumeric(string) && person != null) {
+        if (NumericString.isNumeric(string) && person != null) {
             person.addExpense(string);
             person = null;
-        } else if (!isNumeric(string)) {
+        } else if (!NumericString.isNumeric(string)) {
             person = findOrMake(people, string);
         }
         return person;
