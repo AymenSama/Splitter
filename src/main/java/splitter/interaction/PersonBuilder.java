@@ -35,7 +35,7 @@ public class PersonBuilder {
             }
             person = handleString(people, person, string);
             if (person != null) {
-                people.add(person);
+                addIfAbsent(people, person);
             }
         }
 
@@ -57,5 +57,11 @@ public class PersonBuilder {
                 .filter(p -> p.getName().equals(name))
                 .findAny()
                 .orElse(new Person(name));
+    }
+
+    private static void addIfAbsent(List<Person> people, Person person) {
+        if (!people.contains(person)) {
+            people.add(person);
+        }
     }
 }

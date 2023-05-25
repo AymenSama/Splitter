@@ -64,6 +64,10 @@ public class PersonBuilderTest {
     void testNameDuplicate() {
         String[] input = {"Willy", "320", "Tim", "40", "Gaby", "48", "Tim", "100"};
         List<Person> people = PersonBuilder.build(input);
-        assertThat(people).contains(new Person("Tim", "140"));
+        assertThat(people).containsExactlyInAnyOrder(
+                new Person("Tim", "140"),
+                new Person("Willy", "320"),
+                new Person("Gaby", "48")
+        );
     }
 }
