@@ -34,7 +34,7 @@ public class PersonBuilder {
             if (string == null) {
                 continue;
             }
-            person = makePersonOrAddExpense(person, string);
+            person = makePersonOrAddExpense(people, person, string);
             if (person != null) {
                 people.add(person);
             }
@@ -43,13 +43,20 @@ public class PersonBuilder {
         return people;
     }
 
-    private static Person makePersonOrAddExpense(Person person, String string) {
+    private static Person makePersonOrAddExpense(List<Person> people, Person person, String string) {
         if (isNumeric(string) && person != null) {
             person.addExpense(string);
             person = null;
         } else if (!isNumeric(string)) {
-            person = new Person(string);
+            person = findOrMake(people, string);
         }
         return person;
+    }
+
+    private static Person findOrMake(List<Person> people, String name) {
+        return people.stream()
+                .filter(p -> p.getName().equals(name))
+                .findAny()
+                .orElse(new Person(name));
     }
 }
