@@ -60,7 +60,7 @@ public class PersonBuilderTest {
         assertThat(people).containsExactlyInAnyOrder(new Person("Bob"), new Person("Martin"), new Person("Tim"));
     }
     @Test
-    @DisplayName("Expenses get added when a name appears more than once in the array")
+    @DisplayName("Expenses get added to the same person when a name appears more than once in the array")
     void testNameDuplicate() {
         String[] input = {"Willy", "320", "Tim", "40", "Gaby", "48", "Tim", "100"};
         List<Person> people = PersonBuilder.build(input);
