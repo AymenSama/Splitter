@@ -7,13 +7,12 @@ import java.util.List;
 
 public class PersonBuilder {
     private static boolean isNumeric(String string) {
-        // Special cases for which the below implementation doesn't work
-        if (string.equals("") || string.startsWith(".") || string.endsWith(".")) {
-            return false;
-        }
-
         String[] parts = string.split("\\.", 2);
         for (String part: parts) {
+            if (part.equals("")) {
+                return false;
+            }
+
             boolean isNotNumeric = part.chars().anyMatch(c -> !Character.isDigit(c));
             if (isNotNumeric) {
                 return false;
