@@ -34,7 +34,7 @@ public class PersonBuilder {
             if (string == null) {
                 continue;
             }
-            person = makePersonOrAddExpense(people, person, string);
+            person = handleString(people, person, string);
             if (person != null) {
                 people.add(person);
             }
@@ -43,7 +43,7 @@ public class PersonBuilder {
         return people;
     }
 
-    private static Person makePersonOrAddExpense(List<Person> people, Person person, String string) {
+    private static Person handleString(List<Person> people, Person person, String string) {
         if (isNumeric(string) && person != null) {
             person.addExpense(string);
             person = null;
