@@ -90,5 +90,11 @@ public class MoneyTest {
         boolean isEqual = m1.equals(m2);
         assertThat(isEqual).isFalse();
     }
+    @Test
+    @DisplayName("Passing a BigDecimal as an argument yields a correct (rounded) result")
+    void testBigDecimalArg() {
+        Money money = new Money(new BigDecimal("4562.9874"));
+        assertThat(money.getValue()).isEqualTo("4562.99");
+    }
 
 }
