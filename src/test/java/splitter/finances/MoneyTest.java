@@ -65,5 +65,21 @@ public class MoneyTest {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, badMoney);
         assertThat(exception.getMessage()).containsIgnoringCase("negative");
     }
+    @Test
+    @DisplayName("Money is equal when it has the same (rounded) value")
+    void testEquals() {
+        Money m1 = new Money("98.125");
+        Money m2 = new Money("98.13");
+        boolean isEqual = m1.equals(m2);
+        assertThat(isEqual).isTrue();
+    }
+    @Test
+    @DisplayName("Money is different when it has different value")
+    void testNotEquals() {
+        Money m1 = new Money("98.12");
+        Money m2 = new Money("98.13");
+        boolean isEqual = m1.equals(m2);
+        assertThat(isEqual).isFalse();
+    }
 
 }

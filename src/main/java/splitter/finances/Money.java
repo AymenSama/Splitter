@@ -31,4 +31,12 @@ public class Money {
      public void add(Money other) {
         this.value = this.value.add(other.value);
     }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Money money = (Money) o;
+        return value.equals(money.value);
+    }
+
 }
