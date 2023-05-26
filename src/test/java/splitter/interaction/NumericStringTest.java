@@ -2,8 +2,10 @@ package splitter.interaction;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class NumericStringTest {
     @Test
@@ -68,5 +70,12 @@ public class NumericStringTest {
         String s = "087.";
         boolean numeric = NumericString.isNumeric(s);
         assertThat(numeric).isFalse();
+    }
+    @Test
+    @DisplayName("Providing null throws an IllegalArgumentException")
+    void testNull() {
+        String s = null;
+        Executable e = () -> NumericString.isNumeric(s);
+        assertThrows(IllegalArgumentException.class, e);
     }
 }

@@ -2,6 +2,9 @@ package splitter.interaction;
 
 class NumericString {
     static boolean isNumeric(String string) {
+        if (string == null) {
+            throw new IllegalArgumentException("Provided string can't be null");
+        }
         String[] parts = string.split("\\.", 2);
         for (String part: parts) {
             if (part.equals("")) {
