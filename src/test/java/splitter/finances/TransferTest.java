@@ -37,4 +37,14 @@ public class TransferTest {
         assertThrows(IllegalArgumentException.class, e2);
         assertThrows(IllegalArgumentException.class, e3);
     }
+    @Test
+    @DisplayName("Providing 0 as transfer value throws an exception")
+    void testZeroMoney() {
+        Person thomas = new Person("Thomas");
+        Person jens = new Person("Jens");
+        Money money = new Money("0");
+        Executable badTransfer = () -> new Transfer(thomas, jens, money);
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, badTransfer);
+        assertThat(exception.getMessage()).containsAnyOf("zero", "0");
+    }
 }

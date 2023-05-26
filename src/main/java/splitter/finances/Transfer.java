@@ -10,5 +10,8 @@ public record Transfer(Person sender, Person receiver, Money value) {
         if (sender.equals(receiver)) {
             throw new UnsupportedOperationException("Sender and receiver can not be identical");
         }
+        if (value.equals(new Money("0"))) {
+            throw new IllegalArgumentException("A transfer can't have zero money");
+        }
     }
 }
