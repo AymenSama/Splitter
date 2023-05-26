@@ -12,50 +12,50 @@ import java.math.BigDecimal;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class ExpenseTest {
+public class MoneyTest {
     @Test
     @DisplayName("199.993 gets rounded correctly to 199.99")
     void testRounding() {
-        Expense expense = new Expense("199.993");
-        BigDecimal value = expense.getValue();
+        Money money = new Money("199.993");
+        BigDecimal value = money.getValue();
         assertThat(value).isEqualTo("199.99");
     }
 
     @Test
     @DisplayName("Expense has to be a number")
     void testNFException() {
-        Executable badExpense = () -> new Expense( "89a");
-        assertThrows(NumberFormatException.class, badExpense);
+        Executable badMoney = () -> new Money( "89a");
+        assertThrows(NumberFormatException.class, badMoney);
     }
 
     @Test
     @DisplayName("No expense can be null")
     void testNull() {
-        Executable badExpense = () -> new Expense( null);
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, badExpense);
+        Executable badMoney = () -> new Money( null);
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, badMoney);
         assertThat(exception.getMessage()).containsIgnoringCase("expense");
     }
 
     @Test
     @DisplayName("Expense value gets rounded correctly after adding expenses")
     void testAddExpense() {
-        Expense expense = new Expense("200");
-        expense.add(new Expense("32.5"));
-        expense.add(new Expense("12.755"));
-        assertThat(expense.getValue()).isEqualTo("245.26");
+        Money money = new Money("200");
+        money.add(new Money("32.5"));
+        money.add(new Money("12.755"));
+        assertThat(money.getValue()).isEqualTo("245.26");
     }
     @Test
     @ExtendWith(OutputCaptureExtension.class)
     @DisplayName("A warning gets logged when passing a number of which the decimal part exceeds 2 digits")
     void testWarning(CapturedOutput output) {
-        new Expense("65.998");
+        new Money("65.998");
         assertThat(output.getErr()).contains("WARNING", "decimal");
     }
     @Test
     @ExtendWith(OutputCaptureExtension.class)
     @DisplayName("No warning gets logged when passing a number of which the decimal part does not exceed 2 digits")
     void testNoWarning(CapturedOutput output) {
-        Expense expense = new Expense("1.78");
+        Money money = new Money("1.78");
         assertThat(output.getErr()).isEmpty();
     }
 

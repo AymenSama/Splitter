@@ -4,13 +4,13 @@ import java.math.BigDecimal;
 
 public class Person {
     private final String name;
-    private final Expense expense;
+    private final Money expense;
     public Person(String name, String expense) {
         if (name == null) {
             throw new IllegalArgumentException("Name can't be null");
         }
         this.name = name;
-        this.expense = new Expense(expense);
+        this.expense = new Money(expense);
     }
 
     public Person(String name) {
@@ -27,7 +27,7 @@ public class Person {
     }
 
     public void addExpense(String expense) {
-        this.expense.add(new Expense(expense));
+        this.expense.add(new Money(expense));
     }
 
     @Override

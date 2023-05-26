@@ -3,9 +3,9 @@ package splitter.data;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-class Expense {
+class Money {
     private BigDecimal value;
-    Expense(String expense) {
+    Money(String expense) {
         if (expense == null) {
             throw new IllegalArgumentException("Expense can't be null");
         }
@@ -24,7 +24,7 @@ class Expense {
         return value;
     }
 
-    void add(Expense other) {
+    void add(Money other) {
         this.value = this.value.add(other.value);
     }
 }
