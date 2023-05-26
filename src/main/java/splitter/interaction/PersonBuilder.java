@@ -18,7 +18,7 @@ public class PersonBuilder {
             if (string == null) {
                 continue;
             }
-            person = handleString(people, person, string);
+            person = handleString(string, person, people);
             if (person != null) {
                 addIfAbsent(people, person);
             }
@@ -27,7 +27,7 @@ public class PersonBuilder {
         return people;
     }
 
-    private static Person handleString(List<Person> people, Person person, String string) {
+    private static Person handleString(String string, Person person, List<Person> people) {
         if (NumericString.isNumeric(string) && person != null) {
             person.addExpense(string);
             person = null;
