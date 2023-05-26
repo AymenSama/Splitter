@@ -5,6 +5,8 @@ import splitter.data.Person;
 import java.util.ArrayList;
 import java.util.List;
 
+import static splitter.interaction.NumericString.isNumeric;
+
 public class PersonBuilder {
     public static List<Person> build(String[] strings) {
         if (strings == null) {
@@ -28,10 +30,10 @@ public class PersonBuilder {
     }
 
     private static Person handleString(String string, Person person, List<Person> people) {
-        if (NumericString.isNumeric(string) && person != null) {
+        if (isNumeric(string) && person != null) {
             person.addExpense(string);
             person = null;
-        } else if (!NumericString.isNumeric(string)) {
+        } else if (!isNumeric(string)) {
             person = findOrMake(people, string);
         }
         return person;
