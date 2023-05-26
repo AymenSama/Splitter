@@ -15,7 +15,7 @@ public class Money {
     private BigDecimal formatMoney(String money) {
         BigDecimal value = new BigDecimal(money);
 
-        if (value.compareTo(new BigDecimal(0)) < 0) {
+        if (value.compareTo(BigDecimal.ZERO) < 0) {
             throw new IllegalArgumentException("Money can't be negative");
         }
         if (value.scale() > 2) {
