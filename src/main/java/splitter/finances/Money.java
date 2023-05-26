@@ -1,15 +1,15 @@
-package splitter.data;
+package splitter.finances;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-class Money {
+public class Money {
     private BigDecimal value;
-    Money(String expense) {
-        if (expense == null) {
+     public Money(String money) {
+        if (money == null) {
             throw new IllegalArgumentException("Expense can't be null");
         }
-        this.value = formatExpense(expense);
+        this.value = formatExpense(money);
     }
 
     private BigDecimal formatExpense(String expense) {
@@ -20,11 +20,11 @@ class Money {
         return value.setScale(2, RoundingMode.HALF_UP);
     }
 
-    BigDecimal getValue() {
+     public BigDecimal getValue() {
         return value;
     }
 
-    void add(Money other) {
+     public void add(Money other) {
         this.value = this.value.add(other.value);
     }
 }

@@ -1,5 +1,7 @@
 package splitter.data;
 
+import splitter.finances.Money;
+
 import java.math.BigDecimal;
 
 public class Person {
