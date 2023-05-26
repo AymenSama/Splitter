@@ -27,4 +27,14 @@ public class TransferTest {
         Executable badTransfer = () -> new Transfer(tim, tim, new Money("1000000000000"));
         assertThrows(UnsupportedOperationException.class, badTransfer);
     }
+    @Test
+    @DisplayName("Providing null in any of the parameters throws an exception")
+    void testNull() {
+        Executable e1 = () -> new Transfer(null, new Person("fails"), new Money("0"));
+        Executable e2 = () -> new Transfer(new Person("fails"), null, new Money("0"));
+        Executable e3 = () -> new Transfer(new Person("fails"), new Person("fails"), null);
+        assertThrows(IllegalArgumentException.class, e1);
+        assertThrows(IllegalArgumentException.class, e2);
+        assertThrows(IllegalArgumentException.class, e3);
+    }
 }
