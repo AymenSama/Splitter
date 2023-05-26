@@ -33,7 +33,7 @@ public class MoneyTest {
     void testNull() {
         Executable badMoney = () -> new Money( null);
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, badMoney);
-        assertThat(exception.getMessage()).containsIgnoringCase("money");
+        assertThat(exception.getMessage()).containsIgnoringCase("null");
     }
 
     @Test
@@ -57,6 +57,13 @@ public class MoneyTest {
     void testNoWarning(CapturedOutput output) {
         Money money = new Money("1.78");
         assertThat(output.getErr()).isEmpty();
+    }
+    @Test
+    @DisplayName("Providing a negative value throws an exception")
+    void testNegativeMoney() {
+        Executable badMoney = () -> new Money("-1");
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, badMoney);
+        assertThat(exception.getMessage()).containsIgnoringCase("negative");
     }
 
 }
