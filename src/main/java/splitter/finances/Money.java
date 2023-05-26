@@ -3,23 +3,27 @@ package splitter.finances;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import static java.util.Objects.requireNonNull;
+
 public class Money {
     private BigDecimal value;
-     public Money(String money) {
+     public Money(BigDecimal money) {
         if (money == null) {
             throw new IllegalArgumentException("Money can't be null");
         }
         this.value = formatMoney(money);
     }
 
-    private BigDecimal formatMoney(String money) {
-        BigDecimal value = new BigDecimal(money);
+    public Money(String money) {
+        this(new BigDecimal(requireNonNull(money, "Money can't be null")));
+    }
 
+    private BigDecimal formatMoney(BigDecimal value) {
         if (value.compareTo(BigDecimal.ZERO) < 0) {
             throw new IllegalArgumentException("Money can't be negative");
         }
         if (value.scale() > 2) {
-            System.err.println("WARNING: The decimal part for " + money + " exceeds 2 digits, the result will be rounded accordingly");
+            System.err.println("WARNING: The decimal part for " + value + " exceeds 2 digits, the result will be rounded accordingly");
         }
         return value.setScale(2, RoundingMode.HALF_UP);
     }

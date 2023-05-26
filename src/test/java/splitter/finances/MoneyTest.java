@@ -29,10 +29,19 @@ public class MoneyTest {
     }
 
     @Test
-    @DisplayName("No money can be null")
-    void testNull() {
-        Executable badMoney = () -> new Money( null);
+    @DisplayName("Passing a null BigDecimal throws an exception")
+    void testNull_01() {
+        BigDecimal bd = null;
+        Executable badMoney = () -> new Money(bd);
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, badMoney);
+        assertThat(exception.getMessage()).containsIgnoringCase("null");
+    }
+    @Test
+    @DisplayName("Passing a null string throws an exception")
+    void testNull_02() {
+        String s = null;
+        Executable badMoney = () -> new Money(s);
+        NullPointerException exception = assertThrows(NullPointerException.class, badMoney);
         assertThat(exception.getMessage()).containsIgnoringCase("null");
     }
 
