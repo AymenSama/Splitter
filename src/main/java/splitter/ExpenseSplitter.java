@@ -13,13 +13,9 @@ public class ExpenseSplitter {
         if (people.size() == 0 || people.size() == 1) {
             return List.of();
         }
-        List<Transfer> transfers = new ArrayList<>();
-        BigDecimal count = new BigDecimal(people.size());
 
-        BigDecimal average = people.stream()
-                .map(Person::getExpenseTotal)
-                .reduce(BigDecimal.ZERO, BigDecimal::add)
-                .divide(count);
+        List<Transfer> transfers = new ArrayList<>();
+        BigDecimal average = expenseAverage(people);
 
         Person sender = people.get(0);
         Person receiver = people.get(1);
@@ -36,5 +32,13 @@ public class ExpenseSplitter {
         transfers.add(transfer);
 
         return transfers;
+    }
+    private static BigDecimal expenseAverage(List<Person> people) {
+        BigDecimal count = new BigDecimal(people.size());
+
+        return people.stream()
+                .map(Person::getExpenseTotal)
+                .reduce(BigDecimal.ZERO, BigDecimal::add)
+                .divide(count);
     }
 }
