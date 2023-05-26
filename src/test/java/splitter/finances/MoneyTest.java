@@ -22,22 +22,22 @@ public class MoneyTest {
     }
 
     @Test
-    @DisplayName("Expense has to be a number")
+    @DisplayName("Money has to be a number")
     void testNFException() {
         Executable badMoney = () -> new Money( "89a");
         assertThrows(NumberFormatException.class, badMoney);
     }
 
     @Test
-    @DisplayName("No expense can be null")
+    @DisplayName("No money can be null")
     void testNull() {
         Executable badMoney = () -> new Money( null);
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, badMoney);
-        assertThat(exception.getMessage()).containsIgnoringCase("expense");
+        assertThat(exception.getMessage()).containsIgnoringCase("money");
     }
 
     @Test
-    @DisplayName("Expense value gets rounded correctly after adding expenses")
+    @DisplayName("Money value gets rounded correctly after adding expenses")
     void testAddExpense() {
         Money money = new Money("200");
         money.add(new Money("32.5"));

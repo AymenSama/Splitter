@@ -7,15 +7,15 @@ public class Money {
     private BigDecimal value;
      public Money(String money) {
         if (money == null) {
-            throw new IllegalArgumentException("Expense can't be null");
+            throw new IllegalArgumentException("Money can't be null");
         }
-        this.value = formatExpense(money);
+        this.value = formatMoney(money);
     }
 
-    private BigDecimal formatExpense(String expense) {
-        BigDecimal value = new BigDecimal(expense);
+    private BigDecimal formatMoney(String money) {
+        BigDecimal value = new BigDecimal(money);
         if (value.scale() > 2) {
-            System.err.println("WARNING: The decimal part for " + expense + " exceeds 2 digits, the result will be rounded accordingly");
+            System.err.println("WARNING: The decimal part for " + money + " exceeds 2 digits, the result will be rounded accordingly");
         }
         return value.setScale(2, RoundingMode.HALF_UP);
     }
