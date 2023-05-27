@@ -55,14 +55,20 @@ public class ExpenseSplitter {
     private static BigDecimal toSend(Person sender, Person receiver, Map<Person, BigDecimal> owedTo) {
         BigDecimal x = owedTo.get(sender);
         BigDecimal y = owedTo.get(receiver);
-        if (y.compareTo(x.abs()) >= 0) {
-            owedTo.replace(sender, BigDecimal.ZERO);
-            owedTo.replace(receiver, y.add(x));
-            return x.abs();
+        BigDecimal toSend = x.abs();
+        // Default assumption: y >= |x|. Swap sender and receiver otherwise.
+        if (y.compareTo(x.abs()) < 0) {
+            sender = returnFirst(receiver, receiver = sender);
+            toSend = y;
         }
-        owedTo.replace(sender, x.add(y));
-        owedTo.replace(receiver, BigDecimal.ZERO);
-        return y;
+
+        owedTo.replace(sender, BigDecimal.ZERO);
+        owedTo.replace(receiver, y.add(x));
+        return toSend;
+    }
+
+    private static <T> T returnFirst(T t1, T t2) {
+        return t1;
     }
 
     private static boolean amountsMatched(Map<Person, BigDecimal> owed) {
