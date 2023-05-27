@@ -9,17 +9,22 @@ import java.math.RoundingMode;
 import java.util.*;
 
 public class ExpenseSplitter {
-    public static List<Transfer> getTransfers(List<Person> people) {
-        List<Transfer> transfers = new ArrayList<>();
-        BigDecimal average = expenseAverage(people);
+    private final Collection<Person> people;
+    private final List<Transfer> transfers = new ArrayList<>();
+    private final Map<Person, BigDecimal> owedTo = new HashMap<>();
 
-        Map<Person, BigDecimal> owedTo = new HashMap<>();
+    public ExpenseSplitter(Collection<Person> people) {
+        this.people = people;
+    }
+
+    public List<Transfer> getTransfers() {
+        BigDecimal average = expenseAverage();
         people.forEach(p -> owedTo.put(p, p.expenseTotal().subtract(average)));
 
-        while (!amountsMatched(owedTo)) {
-            Person sender = getSender(owedTo);
-            Person receiver = getReceiver(owedTo);
-            BigDecimal toSend = toSend(sender, receiver, owedTo);
+        while (!amountsMatched()) {
+            Person sender = getSender();
+            Person receiver = getReceiver();
+            BigDecimal toSend = toSend(sender, receiver);
             Transfer transfer = new Transfer(sender, receiver, new Money(toSend));
             transfers.add(transfer);
         }
@@ -28,15 +33,15 @@ public class ExpenseSplitter {
         return transfers;
     }
 
-    private static Person getSender(Map<Person, BigDecimal> owedTo) {
+    private Person getSender() {
         BigDecimal minValue = owedTo.values().stream()
                 .min(Comparator.naturalOrder())
                 .orElseThrow();
 
-        return getPerson(owedTo, minValue);
+        return getPerson(minValue);
     }
 
-    private static Person getPerson(Map<Person, BigDecimal> owedTo, BigDecimal value) {
+    private Person getPerson(BigDecimal value) {
         return owedTo.entrySet().stream()
                 .filter(e -> e.getValue().equals(value))
                 .map(Map.Entry::getKey)
@@ -44,15 +49,15 @@ public class ExpenseSplitter {
                 .orElseThrow();
     }
 
-    private static Person getReceiver(Map<Person, BigDecimal> owedTo) {
+    private Person getReceiver() {
         BigDecimal maxValue = owedTo.values().stream()
                 .max(Comparator.naturalOrder())
                 .orElseThrow();
 
-        return getPerson(owedTo, maxValue);
+        return getPerson(maxValue);
     }
 
-    private static BigDecimal toSend(Person sender, Person receiver, Map<Person, BigDecimal> owedTo) {
+    private BigDecimal toSend(Person sender, Person receiver) {
         BigDecimal x = owedTo.get(sender);
         BigDecimal y = owedTo.get(receiver);
         BigDecimal toSend = x.abs();
@@ -71,12 +76,12 @@ public class ExpenseSplitter {
         return t1;
     }
 
-    private static boolean amountsMatched(Map<Person, BigDecimal> owed) {
-        return owed.values()
+    private boolean amountsMatched() {
+        return owedTo.values()
                 .stream()
                 .allMatch(v -> v.compareTo(BigDecimal.ZERO) == 0);
     }
-    private static BigDecimal expenseAverage(List<Person> people) {
+    private BigDecimal expenseAverage() {
         // Convention
         if (people.size() == 0) {
             return BigDecimal.ZERO;

@@ -15,14 +15,16 @@ public class ExpenseSplitterTest {
     @DisplayName("No transfers when no people have made expenses")
     void testNoPeople() {
         List<Person> people = List.of();
-        List<Transfer> transfers = ExpenseSplitter.getTransfers(people);
+        ExpenseSplitter splitter = new ExpenseSplitter(people);
+        List<Transfer> transfers = splitter.getTransfers();
         assertThat(transfers).isEmpty();
     }
     @Test
     @DisplayName("No transfers when one person has made an expense")
     void testOnePerson() {
         List<Person> people = List.of(new Person("Axel", "90"));
-        List<Transfer> transfers = ExpenseSplitter.getTransfers(people);
+        ExpenseSplitter splitter = new ExpenseSplitter(people);
+        List<Transfer> transfers = splitter.getTransfers();
         assertThat(transfers).isEmpty();
     }
     @Test
@@ -32,7 +34,8 @@ public class ExpenseSplitterTest {
         Person martin = new Person("Martin", "65.7");
         Money owed = new Money("12.15");
         List<Person> people = List.of(martin, axel);
-        List<Transfer> transfers = ExpenseSplitter.getTransfers(people);
+        ExpenseSplitter splitter = new ExpenseSplitter(people);
+        List<Transfer> transfers = splitter.getTransfers();
         assertThat(transfers).containsExactlyInAnyOrder(new Transfer(martin, axel, owed));
     }
     @Test
@@ -46,7 +49,8 @@ public class ExpenseSplitterTest {
         Money gabyOwsWilly = new Money("66");
         Money karlOwsWilly = new Money("127");
         List<Person> people = List.of(willy, tim, gaby, karl);
-        List<Transfer> transfers = ExpenseSplitter.getTransfers(people);
+        ExpenseSplitter splitter = new ExpenseSplitter(people);
+        List<Transfer> transfers = splitter.getTransfers();
         assertThat(transfers).containsExactlyInAnyOrder(
                 new Transfer(gaby, tim, gabyOwsTim),
                 new Transfer(gaby, willy, gabyOwsWilly),
