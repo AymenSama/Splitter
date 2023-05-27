@@ -7,7 +7,6 @@ import splitter.finances.Transfer;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class ExpenseSplitter {
     public static List<Transfer> getTransfers(List<Person> people) {
@@ -30,33 +29,27 @@ public class ExpenseSplitter {
     }
 
     private static Person getSender(Map<Person, BigDecimal> owedTo) {
-        BigDecimal minAmount = owedTo.values().stream()
+        BigDecimal minValue = owedTo.values().stream()
                 .min(Comparator.naturalOrder())
                 .orElseThrow();
 
-        Set<Person> qualifiedSenders = owedTo.entrySet().stream()
-                .filter(e -> e.getValue().equals(minAmount))
-                .map(Map.Entry::getKey)
-                .collect(Collectors.toSet());
+        return getPerson(owedTo, minValue);
+    }
 
-        return qualifiedSenders.stream()
+    private static Person getPerson(Map<Person, BigDecimal> owedTo, BigDecimal value) {
+        return owedTo.entrySet().stream()
+                .filter(e -> e.getValue().equals(value))
+                .map(Map.Entry::getKey)
                 .findAny()
                 .orElseThrow();
     }
 
     private static Person getReceiver(Map<Person, BigDecimal> owedTo) {
-        BigDecimal maxAmount = owedTo.values().stream()
+        BigDecimal maxValue = owedTo.values().stream()
                 .max(Comparator.naturalOrder())
                 .orElseThrow();
 
-        Set<Person> qualifiedReceivers = owedTo.entrySet().stream()
-                .filter(e -> e.getValue().equals(maxAmount))
-                .map(Map.Entry::getKey)
-                .collect(Collectors.toSet());
-
-        return qualifiedReceivers.stream()
-                .findAny()
-                .orElseThrow();
+        return getPerson(owedTo, maxValue);
     }
 
     private static BigDecimal toSend(Person sender, Person receiver, Map<Person, BigDecimal> owedTo) {
@@ -78,6 +71,7 @@ public class ExpenseSplitter {
                 .allMatch(v -> v.compareTo(BigDecimal.ZERO) == 0);
     }
     private static BigDecimal expenseAverage(List<Person> people) {
+        // Convention
         if (people.size() == 0) {
             return BigDecimal.ZERO;
         }
