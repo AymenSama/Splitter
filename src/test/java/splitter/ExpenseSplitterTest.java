@@ -35,4 +35,22 @@ public class ExpenseSplitterTest {
         List<Transfer> transfers = ExpenseSplitter.getTransfers(people);
         assertThat(transfers).containsExactlyInAnyOrder(new Transfer(martin, axel, owed));
     }
+    @Test
+    @DisplayName("Expenses get split equally between more than two people")
+    void testGroup() {
+        Person willy = new Person("Willy" ,"320");
+        Person tim = new Person("Tim" , "140");
+        Person gaby = new Person("Gaby" , "48");
+        Person karl = new Person("Karl");
+        Money gabyOwsTim = new Money("13");
+        Money gabyOwsWilly = new Money("66");
+        Money karlOwsWilly = new Money("127");
+        List<Person> people = List.of(willy, tim, gaby, karl);
+        List<Transfer> transfers = ExpenseSplitter.getTransfers(people);
+        assertThat(transfers).containsExactlyInAnyOrder(
+                new Transfer(gaby, tim, gabyOwsTim),
+                new Transfer(gaby, willy, gabyOwsWilly),
+                new Transfer(karl, willy, karlOwsWilly)
+        );
+    }
 }
