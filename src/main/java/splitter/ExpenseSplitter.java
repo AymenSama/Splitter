@@ -20,13 +20,13 @@ public class ExpenseSplitter {
         Person sender = people.get(0);
         Person receiver = people.get(1);
 
-        if (sender.getExpenseTotal().compareTo(receiver.getExpenseTotal()) > 0) {
+        if (sender.expenseTotal().compareTo(receiver.expenseTotal()) > 0) {
             Person buffer = sender;
             sender = receiver;
             receiver = buffer;
         }
 
-        Money owedMoney = new Money(receiver.getExpenseTotal().subtract(average));
+        Money owedMoney = new Money(receiver.expenseTotal().subtract(average));
 
         Transfer transfer = new Transfer(sender, receiver, owedMoney);
         transfers.add(transfer);
@@ -37,7 +37,7 @@ public class ExpenseSplitter {
         BigDecimal count = new BigDecimal(people.size());
 
         return people.stream()
-                .map(Person::getExpenseTotal)
+                .map(Person::expenseTotal)
                 .reduce(BigDecimal.ZERO, BigDecimal::add)
                 .divide(count);
     }

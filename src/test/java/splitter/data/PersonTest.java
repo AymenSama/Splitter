@@ -15,7 +15,7 @@ public class PersonTest {
     @DisplayName("Willy spends 320 Euro")
     void testPerson() {
         Person p = new Person("Willy", "320");
-        BigDecimal expense = p.getExpenseTotal();
+        BigDecimal expense = p.expenseTotal();
         String name = p.getName();
         assertThat(name).isEqualTo("Willy");
         assertThat(expense).isEqualTo("320.00");
@@ -34,13 +34,13 @@ public class PersonTest {
     void testAddExpense() {
         Person p = new Person("Martin", "199.993");
         p.addExpense("50.67");
-        assertThat(p.getExpenseTotal()).isEqualTo("250.66");
+        assertThat(p.expenseTotal()).isEqualTo("250.66");
     }
     @Test
     @DisplayName("Philipp has no expenses")
     void testPersonNoExpense() {
         Person p = new Person("Philipp");
-        BigDecimal expense = p.getExpenseTotal();
+        BigDecimal expense = p.expenseTotal();
         String name = p.getName();
         assertThat(name).isEqualTo("Philipp");
         assertThat(expense).isZero();

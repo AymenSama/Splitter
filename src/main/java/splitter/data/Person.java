@@ -24,7 +24,7 @@ public class Person {
         return name;
     }
 
-    public BigDecimal getExpenseTotal() {
+    public BigDecimal expenseTotal() {
         return expense.getValue();
     }
 
@@ -37,6 +37,6 @@ public class Person {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Person person = (Person) o;
-        return name.equals(person.name) && getExpenseTotal().equals(person.getExpenseTotal());
+        return name.equals(person.name) && expenseTotal().equals(person.expenseTotal());
     }
 }
