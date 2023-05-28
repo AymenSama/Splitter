@@ -21,7 +21,7 @@ public class ExpenseSplitter {
         BigDecimal average = expenseAverage();
         people.forEach(p -> owedTo.put(p, p.expenseTotal().subtract(average)));
 
-        while (!amountsMatched()) {
+        while (!expensesMatched()) {
             Person sender = getSender();
             Person receiver = getReceiver();
             BigDecimal toSend = toSend(sender, receiver);
@@ -76,7 +76,7 @@ public class ExpenseSplitter {
         return t1;
     }
 
-    private boolean amountsMatched() {
+    private boolean expensesMatched() {
         return owedTo.values()
                 .stream()
                 .allMatch(v -> v.compareTo(new BigDecimal("-0.001")) >= 0 && v.compareTo(new BigDecimal("0.001")) <= 0);
