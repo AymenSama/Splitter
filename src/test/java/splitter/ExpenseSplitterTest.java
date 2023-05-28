@@ -57,4 +57,15 @@ public class ExpenseSplitterTest {
                 new Transfer(karl, willy, karlOwsWilly)
         );
     }
+    @Test
+    @DisplayName("No transfers when expenses are already split")
+    void testEqualExpenses() {
+        Person leo = new Person("Leo", "45.2");
+        Person martin = new Person("Martin", "45.2");
+        Person andreas = new Person("Andreas", "45.2");
+        List<Person> people = List.of(leo, martin, andreas);
+        ExpenseSplitter splitter = new ExpenseSplitter(people);
+        List<Transfer> transfers = splitter.getTransfers();
+        assertThat(transfers).isEmpty();
+    }
 }
