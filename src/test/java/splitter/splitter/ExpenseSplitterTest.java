@@ -1,4 +1,4 @@
-package splitter;
+package splitter.splitter;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
