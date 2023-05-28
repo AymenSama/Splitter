@@ -77,6 +77,31 @@ public class ExpenseSplitterTest {
         List<Person> people = List.of(leo, martin, andreas);
         ExpenseSplitter splitter = new ExpenseSplitter(people);
         List<Transfer> transfers = splitter.getTransfers();
-        assertThat(transfers).containsExactlyInAnyOrder(new Transfer(andreas, leo, new Money("8.33")), new Transfer(andreas, martin, new Money("8.33")));
+        assertThat(transfers).containsExactlyInAnyOrder(
+                new Transfer(andreas, leo, new Money("8.33")),
+                new Transfer(andreas, martin, new Money("8.33"))
+        );
+    }
+    @Test
+    @DisplayName("Splitting is not deterministic for certain expenses")
+    void testNonDeterminism() {
+        Person a = new Person("A", "400");
+        Person b = new Person("B", "400");
+        Person c = new Person("C", "300");
+        Person d = new Person("D", "300");
+        Person e = new Person("E", "350");
+        List<Person> people = List.of(a, b, c, d, e);
+        ExpenseSplitter splitter = new ExpenseSplitter(people);
+
+        List<Transfer> transfers = splitter.getTransfers();
+
+        assertThat(transfers).containsAnyOf(
+                new Transfer(c, a, new Money("50")),
+                new Transfer(c, b, new Money("50"))
+        );
+        assertThat(transfers).containsAnyOf(
+                new Transfer(d, a, new Money("50")),
+                new Transfer(d, b, new Money("50"))
+        );
     }
 }
