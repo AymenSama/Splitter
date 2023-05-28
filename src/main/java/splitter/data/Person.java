@@ -11,12 +11,20 @@ public class Person {
         if (name == null) {
             throw new IllegalArgumentException("Name can't be null");
         }
+        BigDecimal value = getValue(expense);
         this.name = name;
-        this.expense = new Money(expense);
+        this.expense = new Money(value);
     }
-
     public Person(String name) {
         this(name, "0");
+    }
+
+    private static BigDecimal getValue(String expense) {
+        BigDecimal value = new BigDecimal(expense);
+        if (value.scale() > 2) {
+            System.err.println("WARNING: The decimal part for " + value + " exceeds 2 digits, the result will be rounded accordingly");
+        }
+        return value;
     }
 
 

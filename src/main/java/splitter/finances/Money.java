@@ -22,9 +22,6 @@ public class Money {
         if (value.compareTo(BigDecimal.ZERO) < 0) {
             throw new IllegalArgumentException("Money can't be negative");
         }
-        if (value.scale() > 2) {
-            System.err.println("WARNING: The decimal part for " + value + " exceeds 2 digits, the result will be rounded accordingly");
-        }
         return value.setScale(2, RoundingMode.HALF_UP);
     }
 
