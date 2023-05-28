@@ -39,8 +39,8 @@ public class ExpenseSplitterTest {
         assertThat(transfers).containsExactlyInAnyOrder(new Transfer(martin, axel, owed));
     }
     @Test
-    @DisplayName("Expenses get split equally between more than two people")
-    void testGroup() {
+    @DisplayName("Expenses for which the average does not need to be rounded get equally split")
+    void testGroup_noRoundingAverage() {
         Person willy = new Person("Willy" ,"320");
         Person tim = new Person("Tim" , "140");
         Person gaby = new Person("Gaby" , "48");
@@ -67,5 +67,16 @@ public class ExpenseSplitterTest {
         ExpenseSplitter splitter = new ExpenseSplitter(people);
         List<Transfer> transfers = splitter.getTransfers();
         assertThat(transfers).isEmpty();
+    }
+    @Test
+    @DisplayName("Expenses for which the average needs to be rounded get equally split")
+    void testGroup_roundingAverage() {
+        Person leo = new Person("Leo", "45");
+        Person martin = new Person("Martin", "45");
+        Person andreas = new Person("Andreas", "20");
+        List<Person> people = List.of(leo, martin, andreas);
+        ExpenseSplitter splitter = new ExpenseSplitter(people);
+        List<Transfer> transfers = splitter.getTransfers();
+        assertThat(transfers).containsExactlyInAnyOrder(new Transfer(andreas, leo, new Money("8.33")), new Transfer(andreas, martin, new Money("8.33")));
     }
 }

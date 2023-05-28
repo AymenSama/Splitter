@@ -79,8 +79,9 @@ public class ExpenseSplitter {
     private boolean amountsMatched() {
         return owedTo.values()
                 .stream()
-                .allMatch(v -> v.compareTo(BigDecimal.ZERO) == 0);
+                .allMatch(v -> v.compareTo(new BigDecimal("-0.001")) >= 0 && v.compareTo(new BigDecimal("0.001")) <= 0);
     }
+
     private BigDecimal expenseAverage() {
         // Convention
         if (people.size() == 0) {
@@ -92,6 +93,6 @@ public class ExpenseSplitter {
         return people.stream()
                 .map(Person::expenseTotal)
                 .reduce(BigDecimal.ZERO, BigDecimal::add)
-                .divide(count, RoundingMode.HALF_UP);
+                .divide(count, 3, RoundingMode.HALF_UP);
     }
 }
