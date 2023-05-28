@@ -1,8 +1,8 @@
 package splitter.splitter;
 
 import splitter.data.Person;
-import splitter.finances.Money;
-import splitter.finances.Transfer;
+import splitter.data.finances.Money;
+import splitter.data.finances.Transfer;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

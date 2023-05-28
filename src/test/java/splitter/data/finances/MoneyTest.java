@@ -1,8 +1,9 @@
-package splitter.finances;
+package splitter.data.finances;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
+import splitter.data.finances.Money;
 
 import java.math.BigDecimal;
 

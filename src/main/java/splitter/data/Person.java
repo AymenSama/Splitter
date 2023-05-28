@@ -1,6 +1,6 @@
 package splitter.data;
 
-import splitter.finances.Money;
+import splitter.data.finances.Money;
 
 import java.math.BigDecimal;
 

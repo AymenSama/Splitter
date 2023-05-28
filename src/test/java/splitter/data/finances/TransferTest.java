@@ -1,9 +1,11 @@
-package splitter.finances;
+package splitter.data.finances;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import splitter.data.Person;
+import splitter.data.finances.Money;
+import splitter.data.finances.Transfer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;

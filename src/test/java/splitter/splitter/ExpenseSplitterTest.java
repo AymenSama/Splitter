@@ -3,8 +3,8 @@ package splitter.splitter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import splitter.data.Person;
-import splitter.finances.Money;
-import splitter.finances.Transfer;
+import splitter.data.finances.Money;
+import splitter.data.finances.Transfer;
 
 import java.util.List;
 

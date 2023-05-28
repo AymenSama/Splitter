@@ -1,4 +1,4 @@
-package splitter.finances;
+package splitter.data.finances;
 
 import splitter.data.Person;
 
