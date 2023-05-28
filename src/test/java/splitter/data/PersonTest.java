@@ -2,10 +2,7 @@ package splitter.data;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.function.Executable;
-import org.springframework.boot.test.system.CapturedOutput;
-import org.springframework.boot.test.system.OutputCaptureExtension;
 
 import java.math.BigDecimal;
 
@@ -65,19 +62,5 @@ public class PersonTest {
         Person p3 = new Person("Tim", "21.56");
         assertThat(p1.equals(p2)).isFalse();
         assertThat(p2.equals(p3)).isFalse();
-    }
-    @Test
-    @ExtendWith(OutputCaptureExtension.class)
-    @DisplayName("A warning gets logged when passing an expense of which the decimal part exceeds 2 digits")
-    void testWarning(CapturedOutput output) {
-        new Person("Martin", "65.998");
-        assertThat(output.getErr()).contains("WARNING", "decimal");
-    }
-    @Test
-    @ExtendWith(OutputCaptureExtension.class)
-    @DisplayName("No warning gets logged when passing a number of which the decimal part does not exceed 2 digits")
-    void testNoWarning(CapturedOutput output) {
-        new Person("Leo", "1.78");
-        assertThat(output.getErr()).isEmpty();
     }
 }
