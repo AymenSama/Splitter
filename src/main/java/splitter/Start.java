@@ -9,6 +9,13 @@ import java.util.List;
 
 public class Start {
 
+  /**
+   * @param args Names and their expenses.
+   *             Example: Willy 320 Tim 40 Gaby 48 Tim 100 Karl
+   *             Each name is followed by its expense value. If a name is not followed by a number,
+   *             the program implicitly assumes the value 0 for its expense. So "Karl" and "Karl 0"
+   *             are considered identical in the above example.
+   */
   public static void main(String[] args) {
     if (args.length < 1) {
       System.err.println("Bitte geben sie Personen und ihre Ausgaben an, für die die Ausgaben aufgeteilt werden sollen.");
