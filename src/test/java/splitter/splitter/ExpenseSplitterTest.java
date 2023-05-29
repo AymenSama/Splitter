@@ -2,6 +2,7 @@ package splitter.splitter;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import splitter.data.Person;
 import splitter.data.finances.Money;
 import splitter.data.finances.Transfer;
@@ -9,6 +10,7 @@ import splitter.data.finances.Transfer;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ExpenseSplitterTest {
     @Test
@@ -103,5 +105,11 @@ public class ExpenseSplitterTest {
                 new Transfer(d, a, new Money("50")),
                 new Transfer(d, b, new Money("50"))
         );
+    }
+    @Test
+    @DisplayName("Passing null throws an exception")
+    void testNull() {
+        Executable executable = () -> new ExpenseSplitter(null);
+        assertThrows(IllegalArgumentException.class, executable);
     }
 }

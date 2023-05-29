@@ -14,6 +14,9 @@ public class ExpenseSplitter {
     private final Map<Person, BigDecimal> owedTo = new HashMap<>();
 
     public ExpenseSplitter(Collection<Person> people) {
+        if (people == null) {
+            throw new IllegalArgumentException("\nExpected: a collection of people\nActual: null");
+        }
         this.people = people;
     }
 
