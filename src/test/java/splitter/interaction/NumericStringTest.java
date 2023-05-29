@@ -78,4 +78,11 @@ public class NumericStringTest {
         Executable e = () -> NumericString.isNumeric(s);
         assertThrows(IllegalArgumentException.class, e);
     }
+    @Test
+    @DisplayName("-87.56 is numeric")
+    void testNegativeNumber() {
+        String s = "-87.56";
+        boolean numeric = NumericString.isNumeric(s);
+        assertThat(numeric).isTrue();
+    }
 }

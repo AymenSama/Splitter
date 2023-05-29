@@ -5,6 +5,11 @@ class NumericString {
         if (string == null) {
             throw new IllegalArgumentException("Provided string can't be null");
         }
+
+        if (string.startsWith("-")) {
+            string = string.substring(1);
+        }
+
         String[] parts = string.split("\\.", 2);
         for (String part: parts) {
             if (part.equals("")) {
