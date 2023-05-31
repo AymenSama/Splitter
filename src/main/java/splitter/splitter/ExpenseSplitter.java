@@ -9,7 +9,7 @@ import java.math.RoundingMode;
 import java.util.*;
 
 public class ExpenseSplitter {
-    private final Collection<Person> people;
+    private final List<Person> people = new ArrayList<>();
     private final List<Transfer> transfers = new ArrayList<>();
     private final Map<Person, BigDecimal> owedTo = new HashMap<>();
 
@@ -17,7 +17,7 @@ public class ExpenseSplitter {
         if (people == null) {
             throw new IllegalArgumentException("\nExpected: a collection of people\nActual: null");
         }
-        this.people = people;
+        this.people.addAll(people);
     }
 
     public List<Transfer> getTransfers() {
