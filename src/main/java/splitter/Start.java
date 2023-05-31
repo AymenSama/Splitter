@@ -37,8 +37,10 @@ public class Start {
       return;
     }
     System.out.printf("%-10s | %-10s | %-10s\n\n", "Von", "An", "Betrag");
-    transfers.forEach(
-            t -> System.out.printf("%-10s | %-10s | %-10s\n", t.sender().getName(), t.receiver().getName(), t.value().getValue())
-    );
+    transfers.forEach(Start::printTransfer);
+  }
+
+  private static void printTransfer(Transfer t) {
+    System.out.printf("%-10s | %-10s | %-10s\n", t.sender().getName(), t.receiver().getName(), t.value().getValue());
   }
 }
