@@ -82,7 +82,11 @@ public class ExpenseSplitter {
     private boolean expensesMatched() {
         return owedTo.values()
                 .stream()
-                .allMatch(v -> v.compareTo(new BigDecimal("-0.001")) >= 0 && v.compareTo(new BigDecimal("0.001")) <= 0);
+                .allMatch(ExpenseSplitter::closeToZero);
+    }
+
+    private static boolean closeToZero(BigDecimal v) {
+        return v.compareTo(new BigDecimal("-0.001")) >= 0 && v.compareTo(new BigDecimal("0.001")) <= 0;
     }
 
     private BigDecimal expenseAverage() {
