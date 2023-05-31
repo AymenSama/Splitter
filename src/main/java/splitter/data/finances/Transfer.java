@@ -14,4 +14,8 @@ public record Transfer(Person sender, Person receiver, Money value) {
             throw new IllegalArgumentException("A transfer can't have zero money");
         }
     }
+
+    public void print(String format) {
+      System.out.printf(format, sender.getName(), receiver.getName(), value.getValue());
+    }
 }

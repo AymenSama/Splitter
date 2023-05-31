@@ -36,11 +36,12 @@ public class Start {
       System.out.println("Keine Überweisungen sind nötig.");
       return;
     }
-    System.out.printf("%-10s | %-10s | %-10s\n\n", "Von", "An", "Betrag");
-    transfers.forEach(Start::printTransfer);
+
+    int nSpaces = 10;
+    String format = "%-" + nSpaces + "s | %-" + nSpaces + "s | %-" + nSpaces + "s\n";
+
+    System.out.printf(format + "\n", "Von", "An", "Betrag");
+    transfers.forEach(t->t.print(format));
   }
 
-  private static void printTransfer(Transfer t) {
-    System.out.printf("%-10s | %-10s | %-10s\n", t.sender().getName(), t.receiver().getName(), t.value().getValue());
-  }
 }
