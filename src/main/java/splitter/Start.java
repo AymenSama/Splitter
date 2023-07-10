@@ -18,11 +18,11 @@ public class Start {
    */
   public static void main(String[] args) {
     if (args.length < 1) {
-      System.err.println("Bitte geben sie Personen und ihre Ausgaben an, für die die Ausgaben aufgeteilt werden sollen.");
+      System.err.println("Please provide individuals and their expenses for which the expenses should be split.");
       return;
     }
 
-    System.out.println("Willkommen bei Splitter\n");
+    System.out.println("Welcome to Splitter!\n");
     PersonBuilder builder = new PersonBuilder();
     List<Person> people = builder.build(args);
 
@@ -33,14 +33,14 @@ public class Start {
 
   private static void printTransfers(List<Transfer> transfers) {
     if (transfers.size() == 0) {
-      System.out.println("Keine Überweisungen sind nötig.");
+      System.out.println("No transfers are needed.");
       return;
     }
 
     int nSpaces = 10;
     String format = "%-" + nSpaces + "s | %-" + nSpaces + "s | %-" + nSpaces + "s\n";
 
-    System.out.printf(format + "\n", "Von", "An", "Betrag");
+    System.out.printf(format + "\n", "From", "To", "Amount");
     transfers.forEach(t->t.print(format));
   }
 
